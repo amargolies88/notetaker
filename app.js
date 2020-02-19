@@ -29,21 +29,21 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
-app.post("/api/:id", function (req, res) {
-    let id = req.params.id;
-    // req.body hosts is equal to the JSON post sent from the user
-    // This works because of our body parsing middleware
-    const newCharacter = req.body;
+app.post("/api/notes", function (req, res) {
+    
+    // // req.body hosts is equal to the JSON post sent from the user
+    // // This works because of our body parsing middleware
+    // const newCharacter = req.body;
 
-    // Using a RegEx Pattern to remove spaces from newCharacter
-    // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-    newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
+    // // Using a RegEx Pattern to remove spaces from newCharacter
+    // // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+    // newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
 
-    console.log(newCharacter);
+    // console.log(newCharacter);
 
-    characters.push(newCharacter);
+    // characters.push(newCharacter);
 
-    res.json(newCharacter);
+    // res.json(newCharacter);
 });
 
 
