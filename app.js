@@ -6,14 +6,20 @@ const PORT = 8808;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
+
+
 
 // API ROUTES
 app.get("/api/notes", function (req, res) {
-    console.log("hello");
+    // console.log("hello");
+    console.log("api get req and res:")
+    console.log(req.body);
     fs.readFile(path.join(__dirname, "/db/db.json"), "utf8", function (error, data) {
         if (error) {
             return console.log(error);
         }
+        console.log(data);
         return res.send(data);
     });
 
@@ -30,22 +36,32 @@ app.get("*", function (req, res) {
 });
 
 app.post("/api/notes", function (req, res) {
-    
-    // // req.body hosts is equal to the JSON post sent from the user
-    // // This works because of our body parsing middleware
-    // const newCharacter = req.body;
+    console.log("api post req and res:");
+    console.log(req.body);
+    let finalData = [];
+    console.log("type of finalData:");
+    console.log(typeof finalData);
 
-    // // Using a RegEx Pattern to remove spaces from newCharacter
-    // // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-    // newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
+    fs.readFile(path.join(__dirname, "/db/db.json"), (err, data) => {
+        if (err) throw err;
+        console.log(data);
+        console.log(typeof data);
+        console.log(data);
+        console.log(data.length);
+        finalData = JSON.parse(data);
+        finalData.push(req.body);
+    });
 
-    // console.log(newCharacter);
+    finalData = JSON.stringify(finalData);
 
-    // characters.push(newCharacter);
+    fs.writeFile(path.join(__dirname, "/db/db.json"), data, (err) => {
+        if (err) throw err;
+    });
 
-    // res.json(newCharacter);
+    console.log("wrote to database.");
+    console.log("new database content:");
+    console.log(finalData);
 });
-
 
 
 app.listen(PORT, function () {
