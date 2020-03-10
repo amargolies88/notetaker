@@ -54,6 +54,7 @@ app.post("/api/notes", function (req, res) {
             if (err) throw err;
             console.log("wrote to database:");
             console.log(jsonData);
+            return req.body;
         });
     });
 });
