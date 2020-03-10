@@ -19,8 +19,9 @@ app.get("/api/notes", function (req, res) {
         if (error) {
             return console.log(error);
         }
+        console.log("db.json:")
         console.log(data);
-        return res.send(data);
+        return res.json(data);
     });
 
 
@@ -36,31 +37,25 @@ app.get("*", function (req, res) {
 });
 
 app.post("/api/notes", function (req, res) {
-    console.log("api post req and res:");
+    console.log("api post req.bodeh:");
     console.log(req.body);
     let finalData = [];
-    console.log("type of finalData:");
-    console.log(typeof finalData);
 
     fs.readFile(path.join(__dirname, "/db/db.json"), (err, data) => {
         if (err) throw err;
-        console.log(data);
-        console.log(typeof data);
-        console.log(data);
-        console.log(data.length);
+
+        //Parse the json data and push req.body onto array finalData
         finalData = JSON.parse(data);
         finalData.push(req.body);
+        let jsonData = JSON.stringify(finalData);
+
+        //Save finalData as json in db.json
+        fs.writeFile(path.join(__dirname, "/db/db.json"), jsonData, (err) => {
+            if (err) throw err;
+            console.log("wrote to database:");
+            console.log(jsonData);
+        });
     });
-
-    finalData = JSON.stringify(finalData);
-
-    fs.writeFile(path.join(__dirname, "/db/db.json"), data, (err) => {
-        if (err) throw err;
-    });
-
-    console.log("wrote to database.");
-    console.log("new database content:");
-    console.log(finalData);
 });
 
 
