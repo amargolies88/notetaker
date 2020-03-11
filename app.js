@@ -21,7 +21,7 @@ app.get("/api/notes", function (req, res) {
         }
         console.log("db.json:")
         console.log(data);
-        return res.json(data);
+        res.json(JSON.parse(data));
     });
 
 
