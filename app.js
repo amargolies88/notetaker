@@ -42,6 +42,7 @@ app.delete("/api/notes/:id", (req, res) => {
             console.log(`wrote to db:`);
             console.log(jsonNotes);
             if (err) throw err;
+            res.end();
         });
     });
 
