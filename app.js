@@ -8,6 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+
 // API ROUTES
 app.get("/api/notes", (req, res) => {
     fs.readFile(path.join(__dirname, "/db/db.json"), "utf8", function (error, data) {
@@ -93,6 +94,8 @@ app.get("/notes", function (req, res) {
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "/public/index.html"));
 });
+
+
 
 app.listen(PORT, function () {
     console.log("Listening on PORT " + PORT);
