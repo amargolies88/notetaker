@@ -1,4 +1,5 @@
 const express = require("express");
+const compression = require("compression");
 const path = require("path");
 const fs = require("fs");
 const app = express();
@@ -7,7 +8,7 @@ const PORT = process.env.PORT || 8808;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
-
+app.use(compression({ filter: shouldCompress }));
 
 // API ROUTES
 app.get("/api/notes", (req, res) => {
